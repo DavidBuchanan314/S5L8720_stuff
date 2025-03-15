@@ -1,7 +1,9 @@
 # S5L8720 (iPod Touch 2g) Stuff
 A few years ago I set out to extract the GID key from the S5L8720 (aka iPod Touch 2g). I gave up, but I want to resurrect my efforts, with proper notes this time.
 
-Background info: https://theapplewiki.com/wiki/S5L8720
+S5L8720 background info: https://theapplewiki.com/wiki/S5L8720
+
+What is a GID key? https://theapplewiki.com/wiki/GID_Key (TL;DR an AES-256 key, shared across all devices of the same model)
 
 ## Pinouts
 
