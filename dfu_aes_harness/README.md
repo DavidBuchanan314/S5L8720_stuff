@@ -9,3 +9,5 @@ In its current state, I believe its set up to try to do AES DFA against the GID 
 There are also some hardcoded offsets for the "new" ipod2g bootrom.
 
 Although right now it doesn't even compile. ymmv.
+
+Ah, it does work, I just needed to install `arm-none-eabi-newlib` too. Seems like my `magic` variable for reporting status back to the exploit script is broken, but AES *is* running according to the square wave that appears on the NOR CS line!!!

@@ -96,8 +96,8 @@ def pwn():
     print(received.hex())
     res = received[0x48:0x58].hex()
     ctr = received[0x40:0x44].hex()
-    if ctr == "00000000":
-      raise Exception("ded")
+    #if ctr == "00000000":
+    #  raise Exception("ded")
     print(ctr, "".join(colored(a, "green" if a == b else "red") for a, b in zip(res, gold)))
     with open("raw_faults.log", "a") as logfile:
       logfile.write(res + "\n")

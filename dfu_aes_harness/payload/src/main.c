@@ -25,18 +25,19 @@ int main()
     uint32_t *gold4 = (uint32_t*)gold;
     clock_setup();
     gpio_setup();
-    uart_setup();
+    gpio_pin_output(NOR_CS, 0);
+    //uart_setup();
     while (1) {
         for (int i=0; i<sizeof(aes_buf); i+=4) {
             *(uint32_t*)&aes_buf[i] = 0;
         }
         //aes_crypto_cmd(0x11, aes_buf, NULL, 0x10, 0x200, NULL, NULL);
 
-        gpio_pin_output(NOR_CS, 0);
-        do_hw_aes_decrypt(aes_buf, 0x1000, 1, NULL, NULL);
         gpio_pin_output(NOR_CS, 1);
+        do_hw_aes_decrypt(aes_buf, 0x10, 1, NULL, NULL);
+        gpio_pin_output(NOR_CS, 0);
         
-        for (int i=0; i<sizeof(aes_buf); i+=0x10) {
+        /*for (int i=0; i<sizeof(aes_buf); i+=0x10) {
             uint32_t *word = (uint32_t*)&aes_buf[i];
             int faulted = 0;
             for (int j=0; j<4; j++) {
@@ -54,8 +55,8 @@ int main()
         }
         for (int j=0; j<4; j++) {
             magic2[j] = woot[j];
-        }
-        *magic = ctr++;
+        }*/
+        *magic2 = ctr++;
     }
     return 0;
 }
