@@ -56,9 +56,9 @@ int uart_setup() {
 
 	// Set flow control
 	uart_set_flow_control(0, OFF);
-	uart_set_flow_control(1, ON);
-	uart_set_flow_control(2, ON);
-	uart_set_flow_control(3, ON);
+	uart_set_flow_control(1, OFF);
+	uart_set_flow_control(2, OFF);
+	uart_set_flow_control(3, OFF);
 
 	uart_set_flow_control(4, OFF);
 

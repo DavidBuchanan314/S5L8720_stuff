@@ -8,7 +8,7 @@ CFLAGS := -march=armv6 -mthumb -nostdlib -I./include/
 # if this breaks and i have to write a linker script i will cry
 LDFLAGS := $(CFLAGS) -lgcc -static -Wl,-z,max-page-size=0x1000 -Wl,-Ttext-segment=0x22001000
 
-OBJS := crt0.o main.o uart.o clock.o gpio.o aes.o
+OBJS := crt0.o main.o gpio.o uart.o clock.o aes.o
 TARGET := payload.elf
 TARGET_BIN := payload.bin
 

